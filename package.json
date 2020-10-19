@@ -1,0 +1,15 @@
+{
+  "name": "la-granola-webpage",
+  "version": "1.0.0",
+  "description": "Frutos Secos y Granos",
+  "main": "index.html",
+  "scripts": {
+    "dev": "sergey --watch",
+    "start": "sergey"
+  },
+  "author": "@felipetodev",
+  "license": "MIT",
+  "dependencies": {
+    "sergey": "0.0.13"
+  }
+}
