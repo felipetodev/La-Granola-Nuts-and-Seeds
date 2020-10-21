@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"> 
     <script src="https://kit.fontawesome.com/4d04fcac38.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.1.3/hamburgers.css" >
-    <title>La Granola</title>
+    <title>Contacto</title>
 </head>
 <body>
     <header>
@@ -57,94 +57,29 @@
         </div>
     </div>
 </header>
-    <section class="products">
-    <div class="news">
-        <br>
-        <br>
-        <p>
-            Contarles que somos una empresa chilena que elabora en La Florida por lo que estamos produciendo, embalando
-            y despachando para cumplir con cada uno de ustedes!
-        </p>
-        <br>
-        <p>
-            Los tiempos de despacho se verán afectados por la alta demanda y el #quedateencasa
-        </p>
-        <br>
-        <p>
-            Para hacerlo en forma responsable iremos reponiendo stock en la medida que produzcamos, es decir día a día!
-            Agradecidos de su comprensión!
-        </p>
-        <br>
-        <p>
-            &#127806; LA GRANOLA TEAM &#127806;
-        </p>
-        <br>
-        <br>
+    <!-- <img src="https://cdn.shopify.com/s/files/1/0399/2879/1201/files/All-B-Nat_Banner-Colecciones_2000x.progressive.jpg?v=1591378157"/> -->
+    <section class="contact">
+    <div class="contact__info">
+        <p>¡Si tienes alguna duda sobre algún producto o de la compra, escríbenos!</p>
+        <p>WhatsApp o llámanos al</p>
+        <p>+56 (9) 9038 9207</p>        
     </div>
-    <div class="grid-container">
-        <figure class="products">
-            <img class="main__img" src="https://i.ibb.co/gwbgPJz/shop1.jpg"/>
-            <img class="hover__img" src="https://i.ibb.co/pJ46xD8/shop1v2.jpg"/>
-            <figcaption>
-                <h2 class="detail">Nuez Brasileña</h2>
-            </figcaption>
-        </figure>
-        <figure class="products">
-            <img class="main__img" src="https://i.ibb.co/n8CtbH4/shop2.jpg" />
-            <img class="hover__img" src="https://i.ibb.co/JCWbvKK/shop2v2.jpg" />
-            <figcaption>
-                <h2 class="detail">Castañas de Cajú</h2>
-            </figcaption>
-        </figure>
-        <figure class="products">
-            <img class="main__img" src="https://i.ibb.co/HXf755D/shop4.jpg" />
-            <img class="hover__img" src="https://i.ibb.co/47WmjP3/shop4v2.jpg"/>
-            <figcaption>
-                <h2 class="detail">Almendras<br>(300g - 500g- 1kg)
-                </h2>
-            </figcaption>   
-        </figure>
-        <figure class="products">
-            <img class="main__img" src="https://i.ibb.co/bsfx3FD/shop5.jpg"  />
-            <img class="hover__img" src="https://i.ibb.co/qsvG69D/shop5v2.jpg"  />
-            <figcaption>
-                <h2 class="detail">Nuez</h2>
-            </figcaption>
-        </figure>
-    </div>
-    <div class="details__bottom">
-        <a class="d__bottom-link" href="">+ VER TODO</a>
-    </div>
-</section>
-    <section>
-    <div class="parallax">
-        <p class="parallax__title">— PROPIEDADES —</p>
-        <a class="parallax__btn" href="#">LEER MÁS SOBRE BLABLABLA</a>
-    </div>
-    <div class="about_us">
-        <div class="card__info">
-            <i class="card__icon fas fa-tractor"></i>
-            <h3 class="card__title">- Ingredientes naturales -</h3>
-            <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium consectetur rerum dignissimos, dolor rem ad non? Qu</p>
+    <form class="contact-form" action="https://formsubmit.co/paveparadise_@hotmail.com" method="POST" target="_blank" >
+        <legend>Envianos tus comentarios 👇</legend>
+        <label for="form__name">Nombre <span class="red">*</span></label>
+        <input id="form__name" type="text" name="name" placeholder="Nombre" title="Nombre solo acepta letras y espacios en blanco" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" required/>
+        <label for="form__email">Correo electrónico <span class="red">*</span></label>
+        <input id="form__email" type="email" name="email" placeholder="Correo electrónico" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required/>
+        <label for="form__msg">Mensaje <span class="red">*</span></label>
+        <textarea id="form__msg" name="comments" cols="50" rows="5" placeholder="Escribe tus comentarios" title="Tu comentario no debe exceder los 255 caracteres" data-pattern="^.{1,255}$" required></textarea>
+        <input class="submit__form" type="submit" value="Enviar">
+        <div class="contact-form-loader none">
+            <img src="../assets/oval.svg" alt="Cargando">
         </div>
-        <div class="card__info">
-            <i class="card__icon fab fa-pagelines"></i>
-            <h3 class="card__title">- Ingredientes naturales -</h3>
-            <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, deserunt consectetur dolores quibusdam impedit blanditiis</p>
+        <div class="contact-form-response none">
+            <p>Los datos han sido enviados 😊🌾</p>
         </div>
-        <div class="card__info">
-            <i class="card__icon fab far fa-heart"></i>
-            <h3 class="card__title">- Ingredientes naturales -</h3>
-            <p class="card__description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto explicabo ullam rem animi molestiae perspiciatis odit </p>
-        </div>
-        <div class="card__info">
-            <i class="card__icon fab fas fa-truck"></i>
-            <h3 class="card__title">- Ingredientes naturales -</h3>
-            <p class="card__description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat cum, iusto numquam expedita mini</p>
-        </div>
-    </div>
-    <h3 class="instagram">🌾 Síguenos en Instagram! 🌾</h3>
-    <div id="instagram-feed" class="instagram-feed"></div>
+    </form>
 </section>
     <footer>
     <div class="footer__container">

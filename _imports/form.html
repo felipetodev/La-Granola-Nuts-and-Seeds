@@ -1,0 +1,23 @@
+<section class="contact">
+    <div class="contact__info">
+        <p>¡Si tienes alguna duda sobre algún producto o de la compra, escríbenos!</p>
+        <p>WhatsApp o llámanos al</p>
+        <p>+56 (9) 9038 9207</p>        
+    </div>
+    <form class="contact-form" action="https://formsubmit.co/paveparadise_@hotmail.com" method="POST" target="_blank" >
+        <legend>Envianos tus comentarios 👇</legend>
+        <label for="form__name">Nombre <span class="red">*</span></label>
+        <input id="form__name" type="text" name="name" placeholder="Nombre" title="Nombre solo acepta letras y espacios en blanco" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" required/>
+        <label for="form__email">Correo electrónico <span class="red">*</span></label>
+        <input id="form__email" type="email" name="email" placeholder="Correo electrónico" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required/>
+        <label for="form__msg">Mensaje <span class="red">*</span></label>
+        <textarea id="form__msg" name="comments" cols="50" rows="5" placeholder="Escribe tus comentarios" title="Tu comentario no debe exceder los 255 caracteres" data-pattern="^.{1,255}$" required></textarea>
+        <input class="submit__form" type="submit" value="Enviar">
+        <div class="contact-form-loader none">
+            <img src="../assets/oval.svg" alt="Cargando">
+        </div>
+        <div class="contact-form-response none">
+            <p>Los datos han sido enviados 😊🌾</p>
+        </div>
+    </form>
+</section>

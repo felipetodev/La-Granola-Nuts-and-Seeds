@@ -1,5 +1,7 @@
 const d = document;
 
+//MainCarousel
+
 let i = 0;
 const carouselSlider = () => {
     $carouselSlide = d.querySelectorAll(".carousel__slide");
@@ -19,6 +21,8 @@ const carouselSlider = () => {
 
 carouselSlider();
 
+//HamburgerMenu
+
 function hamburgerBtn(panelBtn, panel, menuLink) {
 
     d.addEventListener("click", e => {
@@ -36,17 +40,11 @@ function hamburgerBtn(panelBtn, panel, menuLink) {
 
 d.addEventListener("DOMContentLoaded", e => {
     hamburgerBtn(".panel-btn", ".nav", ".nav a");
+    contactFormValidation();
 });
 
 
-
-
-/***************
-----SECTION----
-***************/
-
-
-
+//Instagram Feed
 
 const $instagramFeed = d.getElementById("instagram-feed");
 
@@ -85,3 +83,31 @@ async function instagramFeed() {
 }
 
 instagramFeed();
+
+/* Formulario */
+
+function contactFormValidation() {
+    const $form = d.querySelector(".contact-form");
+
+    d.addEventListener("submit", e => {
+        e.preventDefault();
+
+        const $loader = d.querySelector(".contact-form-loader");
+        const $response = d.querySelector(".contact-form-response");
+    
+        $loader.classList.remove("none");
+    
+        setTimeout(() => {
+            $loader.classList.add("none");
+            $response.classList.remove("none");
+            $form.reset();
+    
+            setTimeout(() => {
+                $response.classList.add("none");
+            }, 3000)
+    
+        }, 3000)
+    })
+}
+
+contactFormValidation();
