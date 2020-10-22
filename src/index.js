@@ -63,7 +63,7 @@ async function instagramFeed() {
     user = json.graphql.user;
     posts = user.edge_owner_to_timeline_media.edges;
 
-    console.log(posts[0].node);
+    // console.log(posts[0].node);
 
     for (let i = 0; i < 5; i++) {
 
@@ -111,3 +111,38 @@ function contactFormValidation() {
 }
 
 contactFormValidation();
+
+/* Cambios en el Header */
+
+function headerChanges() {
+    let path = location.pathname;
+    let page = path.substring(0, path.lastIndexOf("."));
+    let newPage = page.split("/").pop();
+
+    console.log(page);
+    console.log(newPage);
+
+    const $carouselSlides = d.querySelector(".carousel__slides");
+
+    const getHeight = (elem) => {
+        let styles = getComputedStyle(elem);
+        let heightValue = styles.height;
+        let heigth = parseInt(heightValue);
+        return heigth;
+    }
+    
+    if(path !== "/index.html") {
+        
+        height = getHeight($carouselSlides);
+        $carouselSlides.style.height = `350px`;
+
+        $carouselSlides.innerHTML = `
+            <div class="carousel__slide active">
+                <img src="https://cdn.shopify.com/s/files/1/0399/2879/1201/files/All-B-Nat_Banner-Colecciones_1600x.jpg?v=1591378157" alt="${newPage}">
+                <h2 class="carousel__title">${newPage}</h2>
+                </div>
+        `;
+    }
+}
+
+headerChanges();
