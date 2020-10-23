@@ -48,41 +48,42 @@ d.addEventListener("DOMContentLoaded", e => {
 
 const $instagramFeed = d.getElementById("instagram-feed");
 
-let username = "lagranolacl";
-let INSTA = "https://instagram.com/";
-// let user = null;
-// let posts = null;
+if($instagramFeed) {
 
-async function instagramFeed() {
-    let res = await fetch(INSTA + username + "?__a=1", {
-        method: "GET"
-    });
+    let username = "lagranolacl";
+    let INSTA = "https://instagram.com/";
 
-    let json = await res.json();
+    async function instagramFeed() {
+        let res = await fetch(INSTA + username + "?__a=1", {
+            method: "GET"
+        });
 
-    user = json.graphql.user;
-    posts = user.edge_owner_to_timeline_media.edges;
+        let json = await res.json();
 
-    // console.log(posts[0].node);
+        user = json.graphql.user;
+        posts = user.edge_owner_to_timeline_media.edges;
 
-    for (let i = 0; i < 5; i++) {
+        // console.log(posts[0].node);
 
-        $instagramFeed.innerHTML += `
-                    <figure class="last__timeline">
-                            <img src="${posts[i].node.thumbnail_src}"/>
-                        <a class="post__${posts[i].node.owner.username}" href="https://www.instagram.com/p/${posts[i].node.shortcode}/" target="_blank">
-                            <figcaption class="post__info">
-                                <i class="like__icon far fa-heart"> ${posts[i].node.edge_liked_by.count}</i> 
-                                <i class="comment__icon far fa-comment"> ${posts[i].node.edge_media_to_comment.count}</i>
-                            </figcaption>
-                        </a>
-                    </figure>
-                `;
+        for (let i = 0; i < 5; i++) {
+
+            $instagramFeed.innerHTML += `
+                <figure class="last__timeline">
+                    <img src="${posts[i].node.thumbnail_src}" alt="lagranolacl"/>
+                    <a class="post__${posts[i].node.owner.username}" href="https://www.instagram.com/p/${posts[i].node.shortcode}/" target="_blank" rel="noopener">
+                        <figcaption class="post__info">
+                            <i class="like__icon far fa-heart"> ${posts[i].node.edge_liked_by.count}</i> 
+                            <i class="comment__icon far fa-comment"> ${posts[i].node.edge_media_to_comment.count}</i>
+                        </figcaption>
+                    </a>
+                </figure>
+            `;
+        }
+
     }
 
+    instagramFeed();
 }
-
-instagramFeed();
 
 /* Formulario */
 
@@ -116,13 +117,14 @@ contactFormValidation();
 
 function headerChanges() {
     let path = location.pathname;
+    let host = location.host;
     let page = path.substring(0, path.lastIndexOf("."));
     let newPage = page.split("/").pop();
 
-    console.log(page);
-    console.log(newPage);
-
     const $carouselSlides = d.querySelector(".carousel__slides");
+    const $header = d.querySelector("header");
+    const $dinamicRoute = d.createElement("div");
+        $dinamicRoute.classList.add("dinamic-route");
 
     const getHeight = (elem) => {
         let styles = getComputedStyle(elem);
@@ -131,10 +133,18 @@ function headerChanges() {
         return heigth;
     }
     
-    if(path !== "/index.html") {
-        
+    if(path !== "/index.html" && path !== "/" ) {
+
         height = getHeight($carouselSlides);
         $carouselSlides.style.height = `350px`;
+
+        $dinamicRoute.innerHTML = `
+            <section class="actual__route">
+                <p><a href="/index.html">Inicio</a> / ${newPage}</p>
+            </section>
+        `;
+
+        $header.insertAdjacentElement("afterend", $dinamicRoute);
 
         $carouselSlides.innerHTML = `
             <div class="carousel__slide active">
