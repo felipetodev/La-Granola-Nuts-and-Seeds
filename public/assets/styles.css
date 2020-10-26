@@ -528,28 +528,26 @@ label {
                     
     .nav {
         flex-direction: column;
-        text-align: center;
-        transform: translateY(-100%);
+        align-items: center;
         background-color: var(--color-primary);
-        bottom: 0;
-        top: 0;
-        transition: all 300ms ease;
+        transform: translateY(-100%);
         z-index: 995;
+        transition: all 300ms ease;
     }
     
     .nav.is-active {
         transform: translateX(0%);
-        position: absolute;
     }
     
     .nav__list {
-        display: flex;
+        align-items: center;
         flex-direction: column;
-        justify-content: space-around;
+        padding: 0;
+        flex-grow: 0;
     }
 
     .nav__link {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
                     
     .panel-btn {
@@ -557,15 +555,17 @@ label {
         visibility: visible;
         z-index: 999;
         right: 0;
+        width: 4rem;
     }
                 
     .logo {
-        margin: 0 auto;
-        margin-top: 4.5rem;
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
 
     .logo img {
-        width: 70%;
+        width: 60%;
     }
 
     .grid-container {
@@ -673,4 +673,40 @@ label {
 
 .actual__route a {
     text-decoration: none;
+}
+
+/* Store */
+
+.frutos {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.frutos>* {
+    flex: 1 1 250px;
+    margin: 1rem;
+}
+
+.fruto {
+    background-color: var(--color-secondary);
+    color: var(--color-terciary);
+    font-size: 125%;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+}
+
+
+.fruto:hover {
+    opacity: .9;
+    transform: scale(.9);
+}
+
+.fruto img {
+    max-width: 100%;
+    height: auto;
+}
+
+.fruto figcaption {
+    padding: 1rem;
 }

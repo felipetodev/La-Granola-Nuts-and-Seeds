@@ -1,25 +1,27 @@
+// import STRIPE_KEYS from "./stripe-key.js";
 const d = document;
 
 //MainCarousel
+const $carouselSlide = d.querySelectorAll(".carousel__slide");
 
-let i = 0;
-const carouselSlider = () => {
-    $carouselSlide = d.querySelectorAll(".carousel__slide");
-    setInterval((e) => {
+if($carouselSlide) {
+    let i = 0;
+    const carouselSlider = () => {
+        setInterval((e) => {
 
-        $carouselSlide[i].classList.remove("active");
-        i++;
+            $carouselSlide[i].classList.remove("active");
+            i++;
 
-        if (i >= $carouselSlide.length) {
-            i = 0;
-        }
+            if (i >= $carouselSlide.length) {
+                i = 0;
+            }
 
-        $carouselSlide[i].classList.add("active");
+            $carouselSlide[i].classList.add("active");
 
-    }, 5000);
+        }, 5000);
+    }
+    carouselSlider();
 }
-
-carouselSlider();
 
 //HamburgerMenu
 
@@ -91,7 +93,7 @@ function contactFormValidation() {
     const $form = d.querySelector(".contact-form");
 
     d.addEventListener("submit", e => {
-        e.preventDefault();
+        e.preventDefault(); //<------------------------------------------------
 
         const $loader = d.querySelector(".contact-form-loader");
         const $response = d.querySelector(".contact-form-response");
@@ -115,26 +117,26 @@ contactFormValidation();
 
 /* Cambios en el Header */
 
-function headerChanges() {
-    let path = location.pathname;
-    let host = location.host;
-    let page = path.substring(0, path.lastIndexOf("."));
-    let newPage = page.split("/").pop();
+let path = location.pathname;
+let host = location.host;
+let page = path.substring(0, path.lastIndexOf("."));
+let newPage = page.split("/").pop();
 
-    const $carouselSlides = d.querySelector(".carousel__slides");
-    const $header = d.querySelector("header");
-    const $dinamicRoute = d.createElement("div");
-        $dinamicRoute.classList.add("dinamic-route");
+if(path !== "/index.html" && path !== "/" ) {
+    function headerChanges() {
 
-    const getHeight = (elem) => {
-        let styles = getComputedStyle(elem);
-        let heightValue = styles.height;
-        let heigth = parseInt(heightValue);
-        return heigth;
-    }
-    
-    if(path !== "/index.html" && path !== "/" ) {
+        const $carouselSlides = d.querySelector(".carousel__slides");
+        const $header = d.querySelector("header");
+        const $dinamicRoute = d.createElement("div");
+            $dinamicRoute.classList.add("dinamic-route");
 
+        const getHeight = (elem) => {
+            let styles = getComputedStyle(elem);
+            let heightValue = styles.height;
+            let heigth = parseInt(heightValue);
+            return heigth;
+        }
+        
         height = getHeight($carouselSlides);
         $carouselSlides.style.height = `350px`;
 
@@ -150,9 +152,87 @@ function headerChanges() {
             <div class="carousel__slide active">
                 <img src="https://cdn.shopify.com/s/files/1/0399/2879/1201/files/All-B-Nat_Banner-Colecciones_1600x.jpg?v=1591378157" alt="${newPage}">
                 <h2 class="carousel__title">${newPage}</h2>
-                </div>
+            </div>
         `;
     }
+    headerChanges();
 }
 
-headerChanges();
+
+/* Stripe */
+
+const STRIPE_KEYS = {
+    public: "",
+    secret: ""
+};
+
+const $frutos = d.getElementById("frutos");
+
+if ($frutos) {
+    const $template = d.getElementById("frutos-template").content;
+    const $fragment = d.createDocumentFragment(),
+        fetchOptions = {
+            headers: {
+                Authorization: `Bearer ${STRIPE_KEYS.secret}`
+            }
+        };
+
+    let products, prices;
+    const moneyFormat = (num) => `$${num}`;
+
+    Promise.all([
+        fetch("https://api.stripe.com/v1/products", fetchOptions),
+        fetch("https://api.stripe.com/v1/prices", fetchOptions)
+    ])
+    .then(responses => Promise.all(responses.map(res => res.json())))
+    .then(json => {
+        //console.log(json);
+        products = json[0].data;
+        prices = json[1].data;
+        console.log(products, prices);
+
+        prices.forEach(el => {
+            let productData = products.filter(product => product.id === el.product);
+            // console.log(productData);
+
+            $template.querySelector(".fruto").setAttribute("data-price", el.id);
+            $template.querySelector("img").src = productData[0].images[0];
+            $template.querySelector("img").alt = productData[0].name;
+            $template.querySelector("figcaption").innerHTML = `
+                ${productData[0].name} (${el.nickname})
+                <br>
+                ${moneyFormat(el.unit_amount)} ${el.currency}
+            `;
+
+            let $clone = d.importNode($template, true);
+            $fragment.appendChild($clone);
+        });
+
+        $frutos.appendChild($fragment);
+    })
+    .catch(err => {
+        let message = err.statusText || "Ocurrió un error al conectarse con la API de Stripe";
+        $frutos.innerHTML = `<p>Error ${err.status}: ${message}</p>`;
+    });
+
+    d.addEventListener("click", e => {
+        if(e.target.matches(".fruto *")) {
+            let priceId = e.target.parentElement.getAttribute("data-price");
+            console.log(priceId);
+            Stripe(STRIPE_KEYS.public)
+                .redirectToCheckout({
+                    lineItems: [{ price: priceId, quantity: 1 }],
+                    mode: "payment",
+                    successUrl: "http://localhost:8080/stripe-success.html",
+                    cancelUrl: "http://localhost:8080/index.html",
+            })
+            .then(res => {
+                console.log(res)
+                if(res.error) {
+                    $frutos.insertAdjacentHTML("afterend", res.error.message);
+                }
+            });
+        }
+    });
+
+}
