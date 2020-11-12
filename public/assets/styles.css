@@ -34,6 +34,7 @@ body {
     background-color: var(--color-primary);
     box-shadow: rgba(0, 0, 0, 0.8) 0px 30px 100px;
     position: relative;
+    height: 56px;
 }
 
 .social__icons i {
@@ -58,6 +59,7 @@ body {
 .social__icons {
     padding: 0.2rem;
     flex-grow: 1;
+    margin-left: 0.5rem;
 }
 
 .logo {
@@ -66,8 +68,10 @@ body {
 }
 
 .logo img {
+    display: block;
     max-width: 100%;
-    height: auto
+    height: auto;
+    margin: 0 auto;
 }
 
 .slogan h2{
@@ -79,6 +83,10 @@ body {
 .cart__container {
     margin-right: .5rem;
     padding: 1rem;
+}
+
+.cart__container a {
+    text-decoration: none;
 }
 
 .nav__list {
@@ -116,6 +124,10 @@ body {
 .nav__link:hover::after {
     transform: scaleX(1);
     transform-origin: left;
+}
+
+.hero__logo {
+    display: none;
 }
 
 /* Carousel */
@@ -170,9 +182,18 @@ body {
 
 .bold {
     font-weight: bold;
+    font-size: 0.9rem;
 }
 
 /* Products */
+
+.products__title {
+    width: 100%;
+    text-align: center;
+    color: var(--color-secondary);
+    font-size: 1.2rem;
+    padding: 2rem 1rem;
+}
 
 .grid-container {
     width: 90%;
@@ -189,8 +210,22 @@ body {
     position: relative;
 }
 
+.news {
+    padding: 2rem 0rem;
+}
+
+.news__info {
+    padding: 1rem;
+}
+
+.img__container {
+    background: red;
+}
+
 .main__img {
     width: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .hover__img {
@@ -324,6 +359,11 @@ body {
     color: var(--color-secondary);
 }
 
+.instagram a {
+    text-decoration: none;
+    color: var(--color-secondary);
+}
+
 .instagram-feed {
     display: flex;
     justify-content: center ;
@@ -426,6 +466,11 @@ footer {
     font-size: .8rem;
     padding: 1rem 0;
     text-align: center;
+}
+
+.footer__copy {
+    font-size: 0.7rem;
+    display: inline;
 }
 
 
@@ -557,6 +602,17 @@ label {
         right: 0;
         width: 4rem;
     }
+
+    .hamburger-inner {
+        background-color: white !important;
+        opacity: 1;
+    }
+
+    .hamburger-inner::before,
+    .hamburger-inner::after {
+        background-color: white !important;
+        opacity: 1;
+    }
                 
     .logo {
         display: flex;
@@ -608,6 +664,10 @@ label {
     .dinamic-route > * {
         opacity: 0;
     }
+
+    .footer__credits {
+        padding: 1rem 0.5rem;
+    }
 }
 
 
@@ -615,6 +675,7 @@ label {
     .social__icons {
         display: flex;
         justify-content: space-around;
+        margin: auto;
     }
     
     .slogan {
@@ -627,6 +688,17 @@ label {
 
     .contact-form {
         width: 80%;
+    }
+
+    .hero__logo {
+        display: block;
+        position: absolute;
+        margin: 0 auto;
+        width: 70%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 555;
     }
 }
 
@@ -678,35 +750,74 @@ label {
 /* Store */
 
 .frutos {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.frutos>* {
-    flex: 1 1 250px;
-    margin: 1rem;
+    width: 75%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 4rem;
+    margin: 0 auto;
 }
 
 .fruto {
-    background-color: var(--color-secondary);
-    color: var(--color-terciary);
-    font-size: 125%;
+    color: var(--color-primary);
+    font-size: 110%;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease-out;
 }
 
-
-.fruto:hover {
-    opacity: .9;
-    transform: scale(.9);
-}
-
 .fruto img {
     max-width: 100%;
     height: auto;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .08);
 }
 
-.fruto figcaption {
-    padding: 1rem;
+.prod__description {
+    position: relative;
+    text-align: start;
+    margin: 1rem 0rem;
 }
+
+.product__hover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    position: absolute;
+    background-color: #fff;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    text-transform: uppercase;
+    transform: translateY(30%);
+    transition: all 300ms ease-in;
+}
+
+.fruto:hover .product__hover {
+    transform: translateY(0%);
+    opacity: 1;
+}
+
+.product__hover p {
+    padding: 1rem;
+    border: 1px solid var(--color-text);
+    transition: all 200ms ease-in;
+    font-weight: 500;
+    box-shadow: 0px 2px 8px 0px #d3d3d3;
+}
+
+.product__hover p:hover {
+    color: #fff;
+    background: #7a3f6dda;
+}
+
+.product__name {
+    font-weight: 600;
+}
+
+.product__price {
+    color: var(--color-text);
+    font-size: 0.85rem;
+}
+

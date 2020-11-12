@@ -51,7 +51,6 @@ d.addEventListener("DOMContentLoaded", e => {
 const $instagramFeed = d.getElementById("instagram-feed");
 
 if($instagramFeed) {
-
     let username = "lagranolacl";
     let INSTA = "https://instagram.com/";
 
@@ -81,9 +80,7 @@ if($instagramFeed) {
                 </figure>
             `;
         }
-
     }
-
     instagramFeed();
 }
 
@@ -127,6 +124,7 @@ if(path !== "/index.html" && path !== "/" ) {
 
         const $carouselSlides = d.querySelector(".carousel__slides");
         const $header = d.querySelector("header");
+        const $hero = d.querySelector(".hero");
         const $dinamicRoute = d.createElement("div");
             $dinamicRoute.classList.add("dinamic-route");
 
@@ -139,6 +137,7 @@ if(path !== "/index.html" && path !== "/" ) {
         
         height = getHeight($carouselSlides);
         $carouselSlides.style.height = `350px`;
+        $hero.style.display = 'none';
 
         $dinamicRoute.innerHTML = `
             <section class="actual__route">
@@ -178,7 +177,7 @@ if ($frutos) {
         };
 
     let products, prices;
-    const moneyFormat = (num) => `$${num}`;
+    const moneyFormat = (num) => "$"+num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
 
     Promise.all([
         fetch("https://api.stripe.com/v1/products", fetchOptions),
@@ -199,9 +198,11 @@ if ($frutos) {
             $template.querySelector("img").src = productData[0].images[0];
             $template.querySelector("img").alt = productData[0].name;
             $template.querySelector("figcaption").innerHTML = `
-                ${productData[0].name} (${el.nickname})
-                <br>
-                ${moneyFormat(el.unit_amount)} ${el.currency}
+                <div class="product__hover" data-price="${el.id}"><p>+ Compra Rápida</p></div>
+                <div class="product__info">
+                    <p class="product__name">${productData[0].name} (${el.nickname})</p>
+                    <p class="product__price">${moneyFormat(el.unit_amount)}</p>
+                </div>
             `;
 
             let $clone = d.importNode($template, true);
@@ -216,9 +217,9 @@ if ($frutos) {
     });
 
     d.addEventListener("click", e => {
-        if(e.target.matches(".fruto *")) {
+        if(e.target.matches(".fruto *") || e.target.matches(".product__hover *")) {
             let priceId = e.target.parentElement.getAttribute("data-price");
-            console.log(priceId);
+            // console.log(priceId);
             Stripe(STRIPE_KEYS.public)
                 .redirectToCheckout({
                     lineItems: [{ price: priceId, quantity: 1 }],
