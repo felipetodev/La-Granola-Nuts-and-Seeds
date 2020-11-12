@@ -1,6 +1,4 @@
 # dependencies
-.DS_Store
-public/
 node_modules/
 package-lock.json
 .env
